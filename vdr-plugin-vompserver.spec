@@ -14,7 +14,6 @@ URL:		http://www.loggytronic.com/vomp.php
 Source:		http://www.loggytronic.com/dl/vdr-%plugin-%version.tgz
 # e-tobi
 Patch0:		vompserver-vdr-1.5.0.dpatch
-BuildRoot:	%{_tmppath}/%{name}-buildroot
 BuildRequires:	vdr-devel >= 1.4.1-6
 Requires:	vdr-abi = %vdr_abi
 
