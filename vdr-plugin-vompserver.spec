@@ -1,8 +1,8 @@
 
 %define plugin	vompserver
 %define name	vdr-plugin-%plugin
-%define version	0.2.6
-%define rel	3
+%define version	0.2.7
+%define rel	1
 
 Summary:	VDR plugin: VDR on MVP plugin
 Name:		%name
@@ -13,9 +13,9 @@ License:	GPL
 URL:		http://www.loggytronic.com/vomp.php
 Source:		http://www.loggytronic.com/dl/vdr-%plugin-%version.tgz
 # e-tobi
-Patch0:		vompserver-vdr-1.5.0.dpatch
+Patch0:		01_uninitialized.dpatch
 BuildRoot:	%{_tmppath}/%{name}-buildroot
-BuildRequires:	vdr-devel >= 1.4.1-6
+BuildRequires:	vdr-devel >= 1.6.0
 Requires:	vdr-abi = %vdr_abi
 
 %description
@@ -29,6 +29,7 @@ digital TV consumer set-top-box.
 %prep
 %setup -q -n %plugin-%version
 %patch0 -p1
+%vdr_plugin_prep
 
 %build
 %vdr_plugin_build
