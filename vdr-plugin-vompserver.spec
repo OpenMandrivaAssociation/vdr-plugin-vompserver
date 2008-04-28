@@ -2,7 +2,7 @@
 %define plugin	vompserver
 %define name	vdr-plugin-%plugin
 %define version	0.2.7
-%define rel	1
+%define rel	2
 
 Summary:	VDR plugin: VDR on MVP plugin
 Name:		%name
