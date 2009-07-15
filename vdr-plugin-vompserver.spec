@@ -1,8 +1,8 @@
 
 %define plugin	vompserver
 %define name	vdr-plugin-%plugin
-%define version	0.2.7
-%define rel	3
+%define version	0.3.0
+%define rel	1
 
 Summary:	VDR plugin: VDR on MVP plugin
 Name:		%name
@@ -12,8 +12,6 @@ Group:		Video
 License:	GPL
 URL:		http://www.loggytronic.com/vomp.php
 Source:		http://www.loggytronic.com/dl/vdr-%plugin-%version.tgz
-# e-tobi
-Patch0:		01_uninitialized.dpatch
 BuildRoot:	%{_tmppath}/%{name}-buildroot
 BuildRequires:	vdr-devel >= 1.6.0
 Requires:	vdr-abi = %vdr_abi
@@ -28,7 +26,6 @@ digital TV consumer set-top-box.
 
 %prep
 %setup -q -n %plugin-%version
-%patch0 -p1
 %vdr_plugin_prep
 
 %build
@@ -37,6 +34,10 @@ digital TV consumer set-top-box.
 %install
 rm -rf %{buildroot}
 %vdr_plugin_install
+
+install -d -m755 %{buildroot}%{_vdr_plugin_cfgdir}/%plugin
+install -m644 *.sample %{buildroot}%{_vdr_plugin_cfgdir}/%plugin/
+mv %{buildroot}%{_vdr_plugin_cfgdir}/%plugin/vomp.conf{.sample,}
 
 %clean
 rm -rf %{buildroot}
@@ -49,4 +50,9 @@ rm -rf %{buildroot}
 
 %files -f %plugin.vdr
 %defattr(-,root,root)
-%doc README HISTORY *.sample
+%doc README
+%dir %{_vdr_plugin_cfgdir}/%plugin
+%config(noreplace) %{_vdr_plugin_cfgdir}/%plugin/vomp.conf
+# sample file, thus no noreplace
+%config %{_vdr_plugin_cfgdir}/%plugin/vomp-00-00-00-00-00-00.conf.sample
+
